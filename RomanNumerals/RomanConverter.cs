@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,10 +24,18 @@ namespace RomanNumerals
             {"I", 1}
         };
 
+        private readonly UserInput _userInput;
+
+        public RomanConverter(UserInput userInput)
+        {
+            _userInput = userInput;
+        }
+        
         public string ToRomanNumeral(int number)
         {
             var romanNumeral = new StringBuilder();
-            
+            //separate out
+            //single responsibility -> not dependent on each other
             var currentNumber = number;
 
             foreach (var romanSymbol in _romanNumeralDictionary)
@@ -37,9 +46,8 @@ namespace RomanNumerals
                     currentNumber -= romanSymbol.Value;
                 }
             }
-            
             return romanNumeral.ToString().ToUpper();
         }
-
+        
     }
 }

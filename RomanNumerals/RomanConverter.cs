@@ -1,60 +1,45 @@
 using System.Collections.Generic;
 using System.Text;
 
-// ReSharper disable InconsistentNaming
-
 namespace RomanNumerals
 {
-    public class RomanConverter
+    public class RomanConverter : IRomanConverter
     {
-        private enum RomanSymbol
-        { 
-            I = 1,
-            IV = 4,
-            V = 5,
-            IX = 9,
-            X = 10,
-            XL = 40,
-            L = 50,
-            XC = 90,
-            C = 100,
-            CD = 400,
-            D = 500,
-            CM = 900,
-            M = 1000, 
-        }
 
-        private Dictionary<RomanSymbol, int> RomanNumerals = new Dictionary<RomanSymbol, int>
+        private readonly Dictionary<string,int> _romanNumeralDictionary = new Dictionary<string, int>()
         {
-            {RomanSymbol.I, 1},
-            {RomanSymbol.IV,4},
-            {RomanSymbol.V,5},
-            {RomanSymbol.IX, 9},
-            {RomanSymbol.X,10},
-            {RomanSymbol.XL,40},
-            {RomanSymbol.L, 50},
-            {RomanSymbol.XC,90},
-            {RomanSymbol.C,100},
-            {RomanSymbol.CD, 400},
-            {RomanSymbol.D,500},
-            {RomanSymbol.CM,900},
-            {RomanSymbol.M, 1000}
+            {"M", 1000},
+            {"CM", 900},
+            {"D", 500},
+            {"CD", 400},
+            {"C", 100},
+            {"XC", 90},
+            {"L", 50},
+            {"XL", 40},
+            {"X", 10},
+            {"IX", 9},
+            {"V", 5},
+            {"IV", 4},
+            {"I", 1}
         };
-            
-        
-        public string ConvertDecToRoman(int number)
+
+        public string ToRomanNumeral(int number)
         {
-            var roman = new StringBuilder(); 
+            var romanNumeral = new StringBuilder();
             
-            foreach (var romanSymbol in RomanNumerals)
+            var currentNumber = number;
+
+            foreach (var romanSymbol in _romanNumeralDictionary)
             {
-                while (number >=  romanSymbol.Value)
+                while (currentNumber >=   romanSymbol.Value)
                 {
-                    roman.Append(romanSymbol.Key);
-                    number -=  romanSymbol.Value;
+                    romanNumeral.Append(romanSymbol.Key);
+                    currentNumber -= romanSymbol.Value;
                 }
             }
-            return roman.ToString().ToUpper();
+            
+            return romanNumeral.ToString().ToUpper();
         }
+
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using RomanNumerals;
 using Xunit;
 
 namespace RomanNumeralsTests
@@ -6,9 +7,10 @@ namespace RomanNumeralsTests
     public class RomanNumeralTests
     {
         [Fact]
-        public void Test1()
+        public void Test1ToRoman()
         {
-            Assert.Equal("I", Roman.To(1));
+            var romanConverter = new RomanConverter();
+            Assert.Equal("I", romanConverter.ConvertDecToRoman(1));
         }
         
     }
